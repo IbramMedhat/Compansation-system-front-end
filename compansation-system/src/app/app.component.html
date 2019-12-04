@@ -1,17 +1,6 @@
 <div class="container">
-  <h1>Please Enter below slot details</h1>
-  <form>
-    <div class="form-group">
-      <label for="prefered day">Prefered Day</label>
-      <input type="text" class="form-control" id="prefered day" required>
-    </div>
-
-    <div class="form-group">
-      <label for="course name">Course Name</label>
-      <input type="text" class="form-control" id="course name">
-    </div>
-
-    <button type="submit" class="btn btn-success">Submit</button>
-
-  </form>
+  <h1>Please Choose Your group</h1>
+  <select class="custom-select">
+    <option *ngFor="let groupName of groupNames">{{ groupName }}</option>
+  </select>
 </div>
