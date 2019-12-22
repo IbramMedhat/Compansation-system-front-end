@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const localURL = '';
+const localURL = 'http://localhost:8000/';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,11 @@ export class GroupService {
   constructor(private http : HttpClient) { }
 
   getGroups(){
-    return null;
+    return this.http.get<any[]>(localURL + "all_groups");
     //TODO Add here the get request to the backend to get the available lecture groups
+  }
+
+  getGroupSchedule(groupName) {
+    return this.http.get<any[]>(localURL + "all_slots/" + groupName);
   }
 }

@@ -1,6 +1,80 @@
+
+
 <div class="container">
   <h1>Please Choose Your group</h1>
-  <select class="custom-select">
-    <option *ngFor="let groupName of groupNames">{{ groupName }}</option>
+  <select class="form-control" #t  (change)="setGroupName(t.value)">
+    <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
   </select>
+</div>
+
+<div class="container">
+  <br>
+  <h2 class="text-center">{{ currentGroup }}</h2>
+</div>
+
+<div class="container">
+  <mat-table #table [dataSource]="slots" class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="day">
+      <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
+      <mat-cell *matCellDef="let slot"><ng-template [ngIf]="slot.num < 5">Saturday </ng-template>
+      <ng-template [ngIf]="slot.num > 4 && slot.num < 10">Sunday</ng-template>
+      <ng-template [ngIf]="slot.num > 9 && slot.num < 15">Monday</ng-template>
+      <ng-template [ngIf]="slot.num > 14 && slot.num < 20">Tuesday</ng-template>
+      <ng-template [ngIf]="slot.num > 19 && slot.num < 25">Wednesday</ng-template>
+      <ng-template [ngIf]="slot.num > 24 && slot.num < 30">Thursday</ng-template></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="1st">
+      <mat-header-cell *matHeaderCellDef> 1st </mat-header-cell>
+      <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 0">{{slot.num}}<br>
+      {{ slot.subject }} <br>
+      {{ slot.type }} <br>
+      {{ slot.location}} <br>
+      {{ slot.teacher }}  </ng-template></mat-cell>
+    </ng-container>   
+    
+    <ng-container matColumnDef="2nd">
+      <mat-header-cell *matHeaderCellDef> 2nd </mat-header-cell>
+      <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 1">{{slot.num}}<br>
+        {{ slot.subject }} <br>
+        {{ slot.type }} <br>
+        {{ slot.location}} <br>
+        {{ slot.teacher }}  </ng-template></mat-cell>
+    </ng-container>   
+    
+    <ng-container matColumnDef="3rd">
+      <mat-header-cell *matHeaderCellDef> 3rd </mat-header-cell>
+      <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 2">{{slot.num}}<br>
+        {{ slot.subject }} <br>
+        {{ slot.type }} <br>
+        {{ slot.location}} <br>
+        {{ slot.teacher }}  </ng-template></mat-cell>
+    </ng-container>   
+    
+    <ng-container matColumnDef="4th">
+      <mat-header-cell *matHeaderCellDef> 4th </mat-header-cell>
+      <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 3">{{slot.num}}<br>
+        {{ slot.subject }} <br>
+        {{ slot.type }} <br>
+        {{ slot.location}} <br>
+        {{ slot.teacher }}  </ng-template></mat-cell>
+    </ng-container>   
+    
+    <ng-container matColumnDef="5th">
+      <mat-header-cell *matHeaderCellDef> 5th </mat-header-cell>
+      
+        <mat-cell *matCellDef="let slot"> <ng-template [ngIf]="slot.num % 5 == 4">{{slot.num}}<br>
+          {{ slot.subject }} <br>
+          {{ slot.type }} <br>
+          {{ slot.location}} <br>
+          {{ slot.teacher }}  </ng-template></mat-cell>
+      
+      
+    </ng-container>   
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    
+  </mat-table>
 </div>
