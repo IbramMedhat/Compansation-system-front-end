@@ -14,7 +14,7 @@
 </div>
 
 <div class="container">
-  <mat-table #table [dataSource]="slots" [hidden] = "!visible" class="mat-elevation-z8">
+  <mat-table #table id="table" [dataSource]="slots" [hidden] = "!visible" class="mat-elevation-z8">
     
     <ng-container matColumnDef="day">
       <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
@@ -79,9 +79,10 @@
     
   </mat-table>
 </div>
+<br>
 <div [hidden]="!comVisible">
-<h2>Please pick one slot</h2>
-<mat-table #compTable [dataSource]="suggestedCompensations">
+<h2 class="text-center">Please pick one slot</h2>
+<mat-table #compTable id="compTable" [dataSource]="suggestedCompensations">
   <ng-container matColumnDef="suggestedDay">
     <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
       <mat-cell *matCellDef="let comSlot"><ng-template [ngIf]="comSlot.num < 5">Saturday </ng-template>
