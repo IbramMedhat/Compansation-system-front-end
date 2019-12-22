@@ -28,9 +28,13 @@ export class AppComponent {
   @ViewChild('compTable', {static : false}) compTable: MatTable<Element>;
   displayedSuggestionColumns = ['suggestedDay', 'suggestedSlot', 'suggestedLocation'];
   comVisible = false;
+  
   suggestedNums = [];
   suggesstedLocations = [];
   suggestedCompensations : {num : any, location : any}[] = []
+  
+  currentSelectedIDs = [];
+
   constructor(private groupService : GroupService){}
   ngOnInit(){
     this.visible = false;
@@ -93,5 +97,11 @@ export class AppComponent {
         this.compTable.renderRows();
       }
     );
+  }
+
+  addID(id) {
+    if(!this.currentSelectedIDs.includes(id))
+      this.currentSelectedIDs.push(id);
+    console.log(this.currentSelectedIDs); 
   }
 }
