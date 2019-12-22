@@ -81,6 +81,7 @@ export class AppComponent {
   getNewSchedule(id) {
     this.groupService.getCompansatedSchedule(id).subscribe(
       (response : any) => {
+        this.suggestedCompensations = [];
         this.comVisible = true;
         for(var i = 0;i < response.length;i++) {
           this.suggestedNums[i] = response[String(i)]['NUM'];

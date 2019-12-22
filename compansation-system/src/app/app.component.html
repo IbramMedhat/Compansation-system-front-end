@@ -30,8 +30,8 @@
       <mat-header-cell *matHeaderCellDef> 1st </mat-header-cell>
       <mat-cell *matCellDef="let slot"><ng-template [ngIf]="slot.num % 5 == 0">{{slot.num}}<br>
       {{ slot.subject }} <br>
-      {{ slot.type }} <br>
-      {{ slot.location}} <br>
+      {{ slot.type }} ({{ slot.subgroup }}) <br>
+      loc : {{ slot.location}} <br>
       {{ slot.teacher }}  </ng-template></mat-cell>
     </ng-container>   
     
@@ -39,8 +39,8 @@
       <mat-header-cell *matHeaderCellDef> 2nd </mat-header-cell>
       <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 1">{{slot.num}}<br>
         {{ slot.subject }} <br>
-        {{ slot.type }} <br>
-        {{ slot.location}} <br>
+        {{ slot.type }} ({{ slot.subgroup }}) <br>
+        loc : {{ slot.location}} <br>
         {{ slot.teacher }}  </ng-template></mat-cell>
     </ng-container>   
     
@@ -48,8 +48,8 @@
       <mat-header-cell *matHeaderCellDef> 3rd </mat-header-cell>
       <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 2">{{slot.num}}<br>
         {{ slot.subject }} <br>
-        {{ slot.type }} <br>
-        {{ slot.location}} <br>
+        {{ slot.type }} ({{ slot.subgroup }}) <br>
+        loc : {{ slot.location}} <br>
         {{ slot.teacher }}  </ng-template></mat-cell>
     </ng-container>   
     
@@ -57,8 +57,8 @@
       <mat-header-cell *matHeaderCellDef> 4th </mat-header-cell>
       <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 3">{{slot.num}}<br>
         {{ slot.subject }} <br>
-        {{ slot.type }} <br>
-        {{ slot.location}} <br>
+        {{ slot.type }} ({{ slot.subgroup }}) <br>
+        loc : {{ slot.location}} <br>
         {{ slot.teacher }}  </ng-template></mat-cell>
     </ng-container>   
     
@@ -67,8 +67,8 @@
       
         <mat-cell *matCellDef="let slot"> <ng-template [ngIf]="slot.num % 5 == 4">{{slot.num}}<br>
           {{ slot.subject }} <br>
-          {{ slot.type }} <br>
-          {{ slot.location}} <br>
+          {{ slot.type }} ({{ slot.subgroup }}) <br>
+          loc : {{ slot.location}} <br>
           {{ slot.teacher }}  </ng-template></mat-cell>
       
       
