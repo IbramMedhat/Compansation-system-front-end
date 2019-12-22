@@ -103,5 +103,14 @@ export class AppComponent {
     if(!this.currentSelectedIDs.includes(id))
       this.currentSelectedIDs.push(id);
     console.log(this.currentSelectedIDs); 
+
+    //----- Use the next part if you want to send a post request with the current list of ids to the backend------
+
+    // this.groupService.compensateSlots(this.currentSelectedIDs).subscribe(
+    //   (response: any) =>
+    //   {
+    //     console.log(response);
+    //   }
+    // )
   }
 }

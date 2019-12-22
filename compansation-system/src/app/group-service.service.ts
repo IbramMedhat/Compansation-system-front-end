@@ -7,9 +7,9 @@ const localURL = 'http://localhost:8000/';
 })
 export class GroupService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getGroups(){
+  getGroups() {
     return this.http.get<any[]>(localURL + "all_groups");
     //TODO Add here the get request to the backend to get the available lecture groups
   }
@@ -21,4 +21,13 @@ export class GroupService {
   getCompansatedSchedule(slotID) {
     return this.http.get<any[]>(localURL + "compensate/" + slotID);
   }
+
+
+  compensateSlots(slots) {
+    var data = {
+      id: slots
+    }
+    return this.http.post(localURL + "compensate/", data);
+  }
 }
+
