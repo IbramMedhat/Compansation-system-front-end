@@ -17,4 +17,8 @@ export class GroupService {
   getGroupSchedule(groupName) {
     return this.http.get<any[]>(localURL + "all_slots/" + groupName);
   }
+
+  getCompansatedSchedule(slotID) {
+    return this.http.get<any[]>(localURL + "compensate/" + slotID);
+  }
 }

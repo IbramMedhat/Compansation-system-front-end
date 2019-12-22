@@ -3,6 +3,7 @@
 <div class="container">
   <h1>Please Choose Your group</h1>
   <select class="form-control" #t  (change)="setGroupName(t.value)">
+    <option selected disabled hidden>Choose your group</option>
     <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
   </select>
 </div>
@@ -13,7 +14,7 @@
 </div>
 
 <div class="container">
-  <mat-table #table [dataSource]="slots" class="mat-elevation-z8">
+  <mat-table #table [dataSource]="slots" [hidden] = "!visible" class="mat-elevation-z8">
     
     <ng-container matColumnDef="day">
       <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
@@ -27,7 +28,7 @@
 
     <ng-container matColumnDef="1st">
       <mat-header-cell *matHeaderCellDef> 1st </mat-header-cell>
-      <mat-cell *matCellDef="let slot" ><ng-template [ngIf]="slot.num % 5 == 0">{{slot.num}}<br>
+      <mat-cell *matCellDef="let slot"><ng-template [ngIf]="slot.num % 5 == 0">{{slot.num}}<br>
       {{ slot.subject }} <br>
       {{ slot.type }} <br>
       {{ slot.location}} <br>
@@ -74,7 +75,39 @@
     </ng-container>   
     
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getNewSchedule(row.id)"></mat-row>
     
   </mat-table>
+</div>
+<div [hidden]="!comVisible">
+<h2>Please pick one slot</h2>
+<mat-table #compTable [dataSource]="suggestedCompensations">
+  <ng-container matColumnDef="suggestedDay">
+    <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
+      <mat-cell *matCellDef="let comSlot"><ng-template [ngIf]="comSlot.num < 5">Saturday </ng-template>
+        <ng-template [ngIf]="comSlot.num > 4 && comSlot.num < 10">Sunday</ng-template>
+        <ng-template [ngIf]="comSlot.num > 9 && comSlot.num < 15">Monday</ng-template>
+        <ng-template [ngIf]="comSlot.num > 14 && comSlot.num < 20">Tuesday</ng-template>
+        <ng-template [ngIf]="comSlot.num > 19 && comSlot.num < 25">Wednesday</ng-template>
+        <ng-template [ngIf]="comSlot.num > 24 && comSlot.num < 30">Thursday</ng-template></mat-cell> 
+  </ng-container>
+  
+  <ng-container matColumnDef="suggestedSlot">
+    <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+      <mat-cell *matCellDef="let comSlot"><ng-template [ngIf]="comSlot.num % 5 == 0">First</ng-template>
+        <ng-template [ngIf]="comSlot.num % 5 == 1">Second</ng-template>
+        <ng-template [ngIf]="comSlot.num % 5 == 2">Third</ng-template>
+        <ng-template [ngIf]="comSlot.num % 5 == 3">Fourth</ng-template>
+        <ng-template [ngIf]="comSlot.num % 5 == 4">Fifth</ng-template> 
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="suggestedLocation">
+    <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+      <mat-cell *matCellDef="let comSlot"> {{ comSlot.location }} </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedSuggestionColumns"></mat-header-row>
+  <mat-row mat-row *matRowDef="let row; columns: displayedSuggestionColumns;"></mat-row>
+    
+</mat-table>
 </div>
