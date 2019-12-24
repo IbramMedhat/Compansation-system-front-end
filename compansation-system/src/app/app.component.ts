@@ -31,8 +31,11 @@ export class AppComponent {
   
   suggestedNums = [];
   suggesstedLocations = [];
-  suggestedCompensations : {num : any, location : any}[] = []
+  suggestedCompensation = [];
   
+  suggestedCompArray = [];
+
+  suggestedHidden = true;
   currentSelectedIDs = [];
 
   constructor(private groupService : GroupService){}
@@ -85,14 +88,14 @@ export class AppComponent {
   getNewSchedule(id) {
     this.groupService.getCompansatedSchedule(id).subscribe(
       (response : any) => {
-        this.suggestedCompensations = [];
+        this.suggestedCompensation = [];
         this.comVisible = true;
         for(var i = 0;i < response.length;i++) {
           this.suggestedNums[i] = response[String(i)]['NUM'];
           this.suggesstedLocations[i] = response[String(i)]['LOCATION'];
         }
         for(var i = 0; i < this.suggesstedLocations.length;i++) {
-          this.suggestedCompensations[i] = {num : this.suggestedNums[i], location : this.suggesstedLocations[i]};
+          this.suggestedCompensation[i] = {num : this.suggestedNums[i], location : this.suggesstedLocations[i]};
         }
         this.compTable.renderRows();
       }
@@ -106,11 +109,27 @@ export class AppComponent {
 
     //----- Use the next part if you want to send a post request with the current list of ids to the backend------
 
-    // this.groupService.compensateSlots(this.currentSelectedIDs).subscribe(
-    //   (response: any) =>
-    //   {
-    //     console.log(response);
-    //   }
-    // )
+    this.groupService.compensateSlots(this.currentSelectedIDs).subscribe(
+      (response: any) =>
+      {
+        console.log(response);
+        this.suggestedCompArray = [];
+        for(var i = 0; i < this.currentSelectedIDs.length; i++) {
+          this.suggestedCompensation['num' + this.currentSelectedIDs[i]] = '';
+          this.suggestedCompensation['location' + this.currentSelectedIDs[i]] = '';
+        
+        }
+        for(var i = 0; i < response.length;i++) {
+          for(var j = 0; j < this.currentSelectedIDs.length; j++) {
+            this.suggestedCompensation['num' + this.currentSelectedIDs[j]] = response[i]['NUM' + this.currentSelectedIDs[j]];
+            this.suggestedCompensation['location' + this.currentSelectedIDs[j]] = response[i]['LOCATION' + this.currentSelectedIDs[j]]; 
+          }
+          const myClonedArray  = Object.assign([], this.suggestedCompensation);
+          console.log(myClonedArray);
+          this.suggestedCompArray.push(myClonedArray);
+        }
+        console.log(this.suggestedCompArray);
+      }
+    )
   }
 }
