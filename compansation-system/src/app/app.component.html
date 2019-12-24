@@ -1,13 +1,27 @@
 
-
 <div class="container">
-  <h1>Please Choose Your group</h1>
-  <select class="form-control" #t  (change)="setGroupName(t.value)">
-    <option selected disabled hidden>Choose your group</option>
-    <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
-  </select>
+  <div class="row">
+    <div class="col-xs-6">
+      <h4>Please Choose Your group</h4>
+      <select class="form-control" #t  (change)="setGroupName(t.value)">
+      <option selected disabled hidden>Choose your group</option>
+      <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
+    </select>
+    </div>
+    <div class="col-xs-6" style="margin-left: 20px">
+      <h4>Please choose your preferred day for compensation</h4>
+      <select class="form-control" #d>
+        <option value= "Saturday">Saturday</option>
+        <option value= "Sunday">Sunday</option>
+        <option value= "Monday">Monday</option>
+        <option value= "Tuesday">Tuesday</option>
+        <option value= "Wednesday">Wednesday</option>
+        <option value= "Thursday">Thursday</option>
+      </select>
+      <button type="button" class="btn btn-primary" (click)="setPreferedDay(d.value)" style="float: right;margin-top: 10px;">Confirm Day</button>
+    </div>
+  </div>
 </div>
-
 <div class="container">
   <br>
   <h2 class="text-center">{{ currentGroup }}</h2>

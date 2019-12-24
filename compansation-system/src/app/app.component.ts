@@ -15,6 +15,7 @@ export class AppComponent {
   displayedColumns = ['day', '1st', '2nd', '3rd', '4th', '5th'];
   visible = false;
   
+
   groupNames = [];
   currentGroup = "";
   ids = [];
@@ -159,5 +160,9 @@ export class AppComponent {
         // this.sugTable.renderRows();
       }
     )
+  }
+
+  setPreferedDay(preferedDay) {
+    console.log(preferedDay);
   }
 }
