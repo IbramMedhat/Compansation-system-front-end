@@ -80,9 +80,9 @@
   </mat-table>
 </div>
 <br>
-<div [hidden]="!comVisible">
+<!-- <div [hidden]="!comVisible">
 <h2 class="text-center">Please pick one slot</h2>
-<mat-table #compTable id="compTable" [dataSource]="suggestedCompensations">
+<mat-table #compTable id="compTable" [dataSource]="suggestedCompensation">
   <ng-container matColumnDef="suggestedDay">
     <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
       <mat-cell *matCellDef="let comSlot"><ng-template [ngIf]="comSlot.num < 5">Saturday </ng-template>
@@ -110,6 +110,12 @@
   <mat-header-row *matHeaderRowDef="displayedSuggestionColumns"></mat-header-row>
   <mat-row mat-row *matRowDef="let row; columns: displayedSuggestionColumns;"></mat-row>
 </mat-table>
-</div>
+</div> -->
 
 <button type="button" class="btn btn-primary" (click)="suggestedHidden=false"> Show Suggestions </button>
+
+<table id="compTable" [hidden]="suggestedHidden" class="table table-striped table-responsive-md btn-table">
+  <th *ngFor="let column of displayedSuggestionColumns">{{ column }}</th>
+  <tr *ngFor="let suggestion of suggestedCompArray"><td *ngFor="let sugg of suggestion | keyvalue : originalOrder">{{ sugg.value }}</td> 
+    </tr>
+</table>

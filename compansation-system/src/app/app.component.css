@@ -6,7 +6,7 @@
     margin : auto;
 }
 
-mat-row:hover {
+mat-row:hover,tr:hover {
     background-color: #999;
     cursor: pointer;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GroupService } from 'src/app/group-service.service';
 import { MatTable } from '@angular/material/table';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +26,12 @@ export class AppComponent {
   slotTeachers = [];
   slots : { id : any, num : any, subject : any, type : any, subgroup : any, location : any, teacher : any}[] = [];
 
+  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return 0;
+  }
+
   @ViewChild('compTable', {static : false}) compTable: MatTable<Element>;
-  displayedSuggestionColumns = ['suggestedDay', 'suggestedSlot', 'suggestedLocation'];
+  displayedSuggestionColumns = [];
   comVisible = false;
   
   suggestedNums = [];
@@ -37,6 +42,7 @@ export class AppComponent {
 
   suggestedHidden = true;
   currentSelectedIDs = [];
+  @ViewChild('sugTable', {static :false}) sugTable: MatTable<Element>;
 
   constructor(private groupService : GroupService){}
   ngOnInit(){
@@ -114,7 +120,11 @@ export class AppComponent {
       {
         console.log(response);
         this.suggestedCompArray = [];
+        this.displayedSuggestionColumns = [];
         for(var i = 0; i < this.currentSelectedIDs.length; i++) {
+          this.displayedSuggestionColumns.push('num' + this.currentSelectedIDs[i]);
+          this.displayedSuggestionColumns.push('location' + this.currentSelectedIDs[i]);
+          
           this.suggestedCompensation['num' + this.currentSelectedIDs[i]] = '';
           this.suggestedCompensation['location' + this.currentSelectedIDs[i]] = '';
         
@@ -128,7 +138,8 @@ export class AppComponent {
           console.log(myClonedArray);
           this.suggestedCompArray.push(myClonedArray);
         }
-        console.log(this.suggestedCompArray);
+        console.log(this.displayedSuggestionColumns);
+        // this.sugTable.renderRows();
       }
     )
   }
