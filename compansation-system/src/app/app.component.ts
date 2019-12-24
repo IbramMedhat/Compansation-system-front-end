@@ -122,16 +122,33 @@ export class AppComponent {
         this.suggestedCompArray = [];
         this.displayedSuggestionColumns = [];
         for(var i = 0; i < this.currentSelectedIDs.length; i++) {
-          this.displayedSuggestionColumns.push('num' + this.currentSelectedIDs[i]);
-          this.displayedSuggestionColumns.push('location' + this.currentSelectedIDs[i]);
-          
+          this.displayedSuggestionColumns.push('slot' + (i+1));
+          this.displayedSuggestionColumns.push('location' + (i+1));
+          this.displayedSuggestionColumns.push('day' + (i+1));
           this.suggestedCompensation['num' + this.currentSelectedIDs[i]] = '';
           this.suggestedCompensation['location' + this.currentSelectedIDs[i]] = '';
-        
+          this.suggestedCompensation['day' + this.currentSelectedIDs[i]] = '';
         }
         for(var i = 0; i < response.length;i++) {
           for(var j = 0; j < this.currentSelectedIDs.length; j++) {
-            this.suggestedCompensation['num' + this.currentSelectedIDs[j]] = response[i]['NUM' + this.currentSelectedIDs[j]];
+            var currentSoltNum = response[i]['NUM' + this.currentSelectedIDs[j]];
+            switch(currentSoltNum % 5) {
+              case 0 : this.suggestedCompensation['num' + (this.currentSelectedIDs[j])] = '1st';break;
+              case 1 : this.suggestedCompensation['num' + (this.currentSelectedIDs[j])] = '2nd';break;
+              case 2 : this.suggestedCompensation['num' + (this.currentSelectedIDs[j])] = '3rd';break;
+              case 3 : this.suggestedCompensation['num' + (this.currentSelectedIDs[j])] = '4th';break;
+              case 4 : this.suggestedCompensation['num' + (this.currentSelectedIDs[j])] = '5th';break;
+            }
+            
+            switch(true) {
+              case (currentSoltNum < 5) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Saturday';break;
+              case (currentSoltNum < 10) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Sunday';break;
+              case (currentSoltNum < 15) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Monday';break;
+              case (currentSoltNum < 20) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Tuesday';break;
+              case (currentSoltNum < 25) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Wednesday';break;
+              case (currentSoltNum < 30) : this.suggestedCompensation['day' + (this.currentSelectedIDs[j])] = 'Thursday';break;
+              default : console.log('Defauuult!');
+            }
             this.suggestedCompensation['location' + this.currentSelectedIDs[j]] = response[i]['LOCATION' + this.currentSelectedIDs[j]]; 
           }
           const myClonedArray  = Object.assign([], this.suggestedCompensation);

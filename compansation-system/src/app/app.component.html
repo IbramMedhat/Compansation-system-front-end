@@ -112,10 +112,17 @@
 </mat-table>
 </div> -->
 
-<button type="button" class="btn btn-primary" (click)="suggestedHidden=false"> Show Suggestions </button>
+<button type="button" class="btn btn-primary" (click)="suggestedHidden=false" style="float: right;margin-right: 100px;"> Show Suggestions </button>
 
-<table id="compTable" [hidden]="suggestedHidden" class="table table-striped table-responsive-md btn-table">
-  <th *ngFor="let column of displayedSuggestionColumns">{{ column }}</th>
-  <tr *ngFor="let suggestion of suggestedCompArray"><td *ngFor="let sugg of suggestion | keyvalue : originalOrder">{{ sugg.value }}</td> 
+<br>
+<div class="container" [hidden]="suggestedHidden">
+<h2>Choose only one compensation suggestion</h2>
+<br>
+<table id="compTable"  class="table table-striped table-responsive-md btn-table">
+  <th class="align-middle"  *ngFor="let column of displayedSuggestionColumns">{{ column }}</th>
+  <tr *ngFor="let suggestion of suggestedCompArray"><td class="align-middle" *ngFor="let sugg of suggestion | keyvalue : originalOrder">{{ sugg.value }}</td> 
     </tr>
 </table>
+</div>
+<br>
+<br>
