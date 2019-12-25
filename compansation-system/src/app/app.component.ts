@@ -63,6 +63,8 @@ export class AppComponent {
     },
       (error) => console.log(error)
     );
+    this.displayedSuggestionColumns = [];
+    this.suggestedCompArray = [];
   }
 
   setGroupName(group) {
@@ -71,6 +73,9 @@ export class AppComponent {
     this.weeksHidden = false;
     this.suggestedHidden = true;
     this.suggestedCompArray = [];
+    this.currentSelectedIDs = [];
+    
+    
   }
 
 
@@ -149,10 +154,13 @@ export class AppComponent {
     this.groupService.compensateSlots(this.currentSelectedIDs).subscribe(
       (response: any) =>
       {
+        console.log("Response : ");
         console.log(response);
         this.suggestedArrayToBeSent = [];
         this.suggestedCompArray = [];
         this.displayedSuggestionColumns = [];
+        this.suggestedCompensation = [];
+        console.log(this.currentSelectedIDs);
         for(var i = 0; i < this.currentSelectedIDs.length; i++) {
           this.displayedSuggestionColumns.push('slot' + (i+1));
           this.displayedSuggestionColumns.push('location' + (i+1));
@@ -163,6 +171,7 @@ export class AppComponent {
 
           
         }
+        console.log(this.suggestedCompensation);
         for(var i = 0; i < response.length;i++) {
           for(var j = 0; j < this.currentSelectedIDs.length; j++) {
             var currentSoltNum = response[i]['NUM' + this.currentSelectedIDs[j]];
@@ -184,14 +193,16 @@ export class AppComponent {
             }
             this.suggestedCompensation['location' + this.currentSelectedIDs[j]] = response[i]['LOCATION' + this.currentSelectedIDs[j]]; 
           }
+          console.log(this.suggestedCompensation);
           const myClonedArray  = Object.assign([], this.suggestedCompensation);
           this.suggestedCompArray.push(myClonedArray);
           this.suggestedArrayToBeSent.push(response[i]);
         }
         console.log("Suggested final array");
         console.log(this.suggestedCompArray);
-        console.log("Returned Array");
-        console.log(this.suggestedArrayToBeSent);
+        //console.log("Returned Array");
+        // console.log(this.suggestedArrayToBeSent);
+        // console.log(this.currentSelectedIDs);
         //this.sugTable.renderRows();
 
       }
@@ -203,9 +214,23 @@ export class AppComponent {
     this.groupService.compensateWithPreference(this.currentSelectedIDs, preferredNum).subscribe(
       (response: any) =>
       {
-        console.log(preferredNum);
-        console.log(this.currentSelectedIDs[0]);
+
+        // console.log(preferredNum);
+        // console.log(this.currentSelectedIDs[0]);
         console.log(response);
+        console.log("suggested : ");
+        console.log(this.suggestedCompArray);
+        if(response.length > 0){
+          for(var i = 0; i < response.length;i++) {
+            console.log(this.currentSelectedIDs);
+            this.suggestedCompArray[i]['location' + this.currentSelectedIDs[0]] = response[i]['LOCATION' + this.currentSelectedIDs[0]];
+          }
+          this.suggestedHidden = false;
+          console.log(this.suggestedCompArray);
+        }
+        
+        // console.log(this.currentSelectedIDs);
+        
         
       }
     );
@@ -214,13 +239,18 @@ export class AppComponent {
 
   sendSuggested(i) {
     console.log(this.suggestedArrayToBeSent[i]);
-    this.groupService.getFinalSchedule(this.currentSelectedIDs, this.suggestedArrayToBeSent[i]).subscribe(
-      (response : any) => {
-        this.weeksHidden = true;
+    this.weeksHidden = true;
         this.suggestedHidden = true;
         this.suggestedCompArray = [];
+        this.currentSelectedIDs = [];
+        this.suggestedArrayToBeSent = [];
+        this.displayedSuggestionColumns = [];
         this.chooseTimeHidden = true;
         this.visible = false;
+    this.groupService.getFinalSchedule(this.currentSelectedIDs, this.suggestedArrayToBeSent[i]).subscribe(
+      
+      (response : any) => {
+        
       }
     );
   }
