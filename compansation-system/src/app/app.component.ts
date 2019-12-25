@@ -14,7 +14,7 @@ export class AppComponent {
   @ViewChild('table', {static : false}) table: MatTable<Element>;
   displayedColumns = ['day', '1st', '2nd', '3rd', '4th', '5th'];
   visible = false;
-  
+  status = false;
 
   groupNames = [];
   currentGroup = "";
@@ -25,7 +25,7 @@ export class AppComponent {
   slotLocations = [];
   slotSubGroups = [];
   slotTeachers = [];
-  slots : { id : any, num : any, subject : any, type : any, subgroup : any, location : any, teacher : any}[] = [];
+  slots : { id : any, num : any, subject : any, type : any, subgroup : any, location : any, teacher : any, clicked : boolean}[] = [];
 
   originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
     return 0;
@@ -82,7 +82,7 @@ export class AppComponent {
         for(var i = 0; i < this.slotNums.length;i++){
           this.slots[i] = {id : this.ids[i], num : this.slotNums[i], subject : this.slotSubjects[i]
           ,type : this.slotTypes[i], subgroup : this.slotSubGroups[i],
-          location : this.slotLocations[i], teacher : this.slotTeachers[i]};
+          location : this.slotLocations[i], teacher : this.slotTeachers[i], clicked : false};
         }
         this.table.renderRows();
       }

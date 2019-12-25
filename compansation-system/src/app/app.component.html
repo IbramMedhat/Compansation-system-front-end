@@ -89,7 +89,7 @@
     </ng-container>   
     
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;" (click)="addID(row.id)"></mat-row>
+    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'clicked' : row.clicked}" (click)="addID(row.id);row.clicked = true"></mat-row>
     
   </mat-table>
   <br>
