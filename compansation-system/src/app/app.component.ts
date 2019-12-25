@@ -192,7 +192,8 @@ export class AppComponent {
         console.log(this.suggestedCompArray);
         console.log("Returned Array");
         console.log(this.suggestedArrayToBeSent);
-        // this.sugTable.renderRows();
+        //this.sugTable.renderRows();
+
       }
     )
   }
@@ -215,6 +216,7 @@ export class AppComponent {
     console.log(this.suggestedArrayToBeSent[i]);
     this.groupService.getFinalSchedule(this.currentSelectedIDs, this.suggestedArrayToBeSent[i]).subscribe(
       (response : any) => {
+        console.log("Confirmation response : ");
         console.log(response);
       }
     );
