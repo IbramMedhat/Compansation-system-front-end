@@ -48,8 +48,8 @@ export class GroupService {
       compensations_possibility : chosenSlots,
       id : IDsArray
     }
-    console.log("chosen : ");
-    console.log(chosenSlots);
+    console.log("DATA  : ");
+    console.log(data);
     return this.http.post(localURL + "compensate/confirm", data);
   }
 }
