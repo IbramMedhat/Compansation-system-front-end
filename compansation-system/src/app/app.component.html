@@ -1,25 +1,40 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <h4>Please Choose Your group</h4>
-      <select class="form-control" #t  (change)="setGroupName(t.value)">
+      <select class="form-control" #g  (change)="setGroupName(g.value)">
       <option selected disabled hidden>Choose your group</option>
       <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
     </select>
     </div>
-    <div class="col-xs-6" style="margin-left: 20px">
-      <h4>Please choose your preferred day for compensation</h4>
-      <select class="form-control" #d>
-        <option value= "Saturday">Saturday</option>
-        <option value= "Sunday">Sunday</option>
-        <option value= "Monday">Monday</option>
-        <option value= "Tuesday">Tuesday</option>
-        <option value= "Wednesday">Wednesday</option>
-        <option value= "Thursday">Thursday</option>
+    <div [hidden] = "chooseTimeHidden" class="col-xs-12" style="margin-left: 20px">
+      <h4>Please choose your preferred time for compensation</h4>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6">
+          <select class="form-control" #t style="width : 100%">
+            <option value="0">First</option>
+            <option value="1">Second</option>
+            <option value="2">Third</option>
+            <option value="3">Fourth</option>
+            <option value="4">Fifth</option>
+          </select>
+        </div>
+        <div class="col-xs-6">
+      <select class="form-control" #d style="width : 100%">
+        <option value= "0">Saturday</option>
+        <option value= "5">Sunday</option>
+        <option value= "10">Monday</option>
+        <option value= "15">Tuesday</option>
+        <option value= "20">Wednesday</option>
+        <option value= "25">Thursday</option>
       </select>
-      <button type="button" class="btn btn-primary" (click)="setPreferedDay(d.value)" style="float: right;margin-top: 10px;">Confirm Day</button>
+      <button type="button" class="btn btn-primary" (click)="setPreferedDay(d.value, t.value)" style="float: right;margin-top: 10px;">Confirm time</button>
+      </div>
     </div>
+      </div>
+  </div>
   </div>
 </div>
 <div class="container">

@@ -45,6 +45,8 @@ export class AppComponent {
   currentSelectedIDs = [];
   @ViewChild('sugTable', {static :false}) sugTable: MatTable<Element>;
 
+  chooseTimeHidden = false;
+
   constructor(private groupService : GroupService){}
   ngOnInit(){
     this.visible = false;
@@ -111,6 +113,9 @@ export class AppComponent {
   addID(id) {
     if(!this.currentSelectedIDs.includes(id))
       this.currentSelectedIDs.push(id);
+    if(this.currentSelectedIDs.length > 1) {
+      this.chooseTimeHidden = true;
+    }
     console.log(this.currentSelectedIDs); 
 
     //----- Use the next part if you want to send a post request with the current list of ids to the backend------
@@ -161,8 +166,8 @@ export class AppComponent {
     )
   }
 
-  setPreferedDay(preferedDay) {
-    
-    console.log(preferedDay);
+  setPreferedDay(preferredDay, preferredTime) {
+    var preferredNum = +preferredDay + +preferredTime;
+    console.log(preferredNum);
   }
 }
