@@ -15,6 +15,8 @@ export class GroupService {
   }
 
   getGroupSchedule(groupName, week) {
+    if(String(groupName).includes('/'))
+      groupName = encodeURIComponent(String(groupName));
     return this.http.get<any[]>(localURL + "all_slots/" + groupName + "/" + week);
   }
 
