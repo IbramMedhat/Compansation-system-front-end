@@ -8,8 +8,27 @@
       <option *ngFor="let groupName of groupNames" [value]="groupName">{{groupName}}</option>
     </select>
     </div>
+    <div class="col-xs-6" style="margin-left: 10px;" [hidden]= "weeksHidden">
+      <h4>Choose Week</h4>
+      <select class="form-control" #w (change)="getGroupSchedule(g.value, w.value)">
+        <option value="1">Week 1</option>
+        <option value="2">Week 2</option>
+        <option value="3">Week 3</option>
+        <option value="4">Week 4</option>
+        <option value="5">Week 5</option>
+        <option value="6">Week 6</option>
+        <option value="7">Week 7</option>
+        <option value="8">Week 8</option>
+        <option value="9">Week 9</option>
+        <option value="10">Wee9 10</option>
+        <option value="11">Week 11</option>
+        <option value="12">Week 12</option>
+        <option value="13">Week 13</option>
+        <option value="14">Week 14</option>
+      </select>
+    </div>
     <div [hidden] = "chooseTimeHidden" class="col-xs-12" style="margin-left: 20px">
-      <h4>Please choose your preferred time for compensation</h4>
+      <h4>Choose time</h4>
       <div class="container">
       <div class="row">
         <div class="col-xs-6">
@@ -30,7 +49,7 @@
         <option value= "20">Wednesday</option>
         <option value= "25">Thursday</option>
       </select>
-      <button type="button" class="btn btn-primary" (click)="setPreferedDay(d.value, t.value)" style="float: right;margin-top: 10px;">Confirm time</button>
+      <button type="button" class="btn btn-primary" (click)="getSuggestedWithPreference(d.value, t.value)" style="float: right;margin-top: 10px;">Confirm time</button>
       </div>
     </div>
       </div>
@@ -151,7 +170,7 @@
 <br>
 <table id="compTable"  class="table table-striped table-responsive-md btn-table">
   <th class="align-middle"  *ngFor="let column of displayedSuggestionColumns">{{ column }}</th>
-  <tr *ngFor="let suggestion of suggestedCompArray"><td class="align-middle" *ngFor="let sugg of suggestion | keyvalue : originalOrder">{{ sugg.value }}</td> 
+  <tr *ngFor="let suggestion of suggestedCompArray;let i = index" (click)="sendSuggested(i)"><td class="align-middle" *ngFor="let sugg of suggestion | keyvalue : originalOrder">{{ sugg.value }}</td> 
     </tr>
 </table>
 </div>

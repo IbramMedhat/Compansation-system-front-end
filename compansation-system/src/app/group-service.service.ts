@@ -14,8 +14,8 @@ export class GroupService {
     //TODO Add here the get request to the backend to get the available lecture groups
   }
 
-  getGroupSchedule(groupName) {
-    return this.http.get<any[]>(localURL + "all_slots/" + groupName);
+  getGroupSchedule(groupName, week) {
+    return this.http.get<any[]>(localURL + "all_slots/" + groupName + "/" + week);
   }
 
   getCompansatedSchedule(slotID) {
@@ -30,8 +30,27 @@ export class GroupService {
     return this.http.post(localURL + "compensate/", data);
   }
 
+  compensateWithPreference(slots, num) {
+    var data = {
+      id : slots,
+      prefered_slot_number : num,
+      preference : true
+    }
+    return this.http.post(localURL + "compensate/", data);
+  }
+
   setPreferedDay(day) {
     //TODO send a post request to the backend with the prefered day
+  }
+
+  getFinalSchedule(IDsArray, chosenSlots){
+    var data = {
+      compensations_possibility : chosenSlots,
+      id : IDsArray
+    }
+    console.log("chosen : ");
+    console.log(chosenSlots);
+    return this.http.post(localURL + "compensate/confirm", data);
   }
 }
 
