@@ -55,7 +55,6 @@ export class AppComponent {
       }},
       (error) => console.log(error)
     );
-    
   }
 
   setGroupName(group) {
@@ -163,6 +162,7 @@ export class AppComponent {
   }
 
   setPreferedDay(preferedDay) {
+    
     console.log(preferedDay);
   }
 }

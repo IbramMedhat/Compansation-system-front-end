@@ -27,8 +27,8 @@
   <h2 class="text-center">{{ currentGroup }}</h2>
 </div>
 
-<div class="container">
-  <mat-table #table id="table" [dataSource]="slots" [hidden] = "!visible" class="mat-elevation-z8">
+<div class="container" [hidden] = "!visible">
+  <mat-table #table id="table" [dataSource]="slots" class="mat-elevation-z8">
     
     <ng-container matColumnDef="day">
       <mat-header-cell *matHeaderCellDef> Day </mat-header-cell>
@@ -92,8 +92,11 @@
     <mat-row mat-row *matRowDef="let row; columns: displayedColumns;" (click)="addID(row.id)"></mat-row>
     
   </mat-table>
+  <br>
+  <button type="button" class="btn btn-primary" (click)="suggestedHidden=false" style="float: right;margin-right: 100px;"> Show Suggestions </button>
+
 </div>
-<br>
+
 <!-- <div [hidden]="!comVisible">
 <h2 class="text-center">Please pick one slot</h2>
 <mat-table #compTable id="compTable" [dataSource]="suggestedCompensation">
@@ -126,7 +129,6 @@
 </mat-table>
 </div> -->
 
-<button type="button" class="btn btn-primary" (click)="suggestedHidden=false" style="float: right;margin-right: 100px;"> Show Suggestions </button>
 
 <br>
 <div class="container" [hidden]="suggestedHidden">

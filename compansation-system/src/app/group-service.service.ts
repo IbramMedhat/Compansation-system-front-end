@@ -29,5 +29,9 @@ export class GroupService {
     }
     return this.http.post(localURL + "compensate/", data);
   }
+
+  setPreferedDay(day) {
+    //TODO send a post request to the backend with the prefered day
+  }
 }
 
