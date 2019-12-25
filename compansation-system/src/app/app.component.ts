@@ -242,8 +242,8 @@ export class AppComponent {
     this.weeksHidden = true;
         this.suggestedHidden = true;
         this.suggestedCompArray = [];
-        this.currentSelectedIDs = [];
-        this.suggestedArrayToBeSent = [];
+        //this.currentSelectedIDs = [];
+        //this.suggestedArrayToBeSent = [];
         this.displayedSuggestionColumns = [];
         this.chooseTimeHidden = true;
         this.visible = false;
