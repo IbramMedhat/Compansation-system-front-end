@@ -216,8 +216,11 @@ export class AppComponent {
     console.log(this.suggestedArrayToBeSent[i]);
     this.groupService.getFinalSchedule(this.currentSelectedIDs, this.suggestedArrayToBeSent[i]).subscribe(
       (response : any) => {
-        console.log("Confirmation response : ");
-        console.log(response);
+        this.weeksHidden = true;
+        this.suggestedHidden = true;
+        this.suggestedCompArray = [];
+        this.chooseTimeHidden = true;
+        this.visible = false;
       }
     );
   }
