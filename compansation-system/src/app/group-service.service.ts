@@ -32,9 +32,10 @@ export class GroupService {
 
   compensateWithPreference(slots, num) {
     var data = {
-      id : slots,
-      prefered_slot_number : num,
-      preference : true
+      preference : 1,
+      id : slots[0],
+      prefered_slot_num : num
+      
     }
     return this.http.post(localURL + "compensate/", data);
   }
