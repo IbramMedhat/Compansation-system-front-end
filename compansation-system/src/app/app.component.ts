@@ -18,6 +18,9 @@ export class AppComponent {
   visible = false;
   status = false;
 
+  prefDay = "";
+  prefSlot = "";
+
   groupNames = [];
   currentGroup = "";
   ids = [];
@@ -211,6 +214,24 @@ export class AppComponent {
 
   getSuggestedWithPreference(preferredDay, preferredTime) {
     var preferredNum = +preferredDay + +preferredTime;
+    switch(+preferredTime) {
+      case 0 : this.prefSlot = "1st";
+      case 1 : this.prefSlot = "2nd";
+      case 2 : this.prefSlot = "3rd";
+      case 3 : this.prefSlot = "4th";
+      case 4 : this.prefSlot = "5th";
+      default : console.log("errooor");
+    }
+
+    switch(true) {
+      case (+preferredDay < 5) : this.prefDay = "Saturday";break;
+      case (+preferredDay < 10) : this.prefDay = "Sunday";break;
+      case (+preferredDay < 15) : this.prefDay = "Monday";break;
+      case (+preferredDay < 20) : this.prefDay = "Tuesday";break;
+      case (+preferredDay < 25) : this.prefDay = "Wednesday";break;
+      case (+preferredDay < 30) : this.prefDay = "Thursday";break;
+      default : console.log("error day");
+    }
     this.groupService.compensateWithPreference(this.currentSelectedIDs, preferredNum).subscribe(
       (response: any) =>
       {
@@ -222,8 +243,11 @@ export class AppComponent {
         console.log(this.suggestedCompArray);
         if(response.length > 0){
           for(var i = 0; i < response.length;i++) {
-            console.log(this.currentSelectedIDs);
             this.suggestedCompArray[i]['location' + this.currentSelectedIDs[0]] = response[i]['LOCATION' + this.currentSelectedIDs[0]];
+            this.suggestedCompArray[i]['day' + this.currentSelectedIDs[0]] = this.prefDay;
+            this.suggestedCompArray[i]['num' + this.currentSelectedIDs[0]] = this.prefSlot;
+            this.suggestedArrayToBeSent[i]['NUM' + this.currentSelectedIDs[0]] = preferredNum;
+            this.suggestedArrayToBeSent[i]['LOCATION' + this.currentSelectedIDs[0]] = response[i]['LOCATION' + this.currentSelectedIDs[0]];
           }
           this.suggestedHidden = false;
           console.log(this.suggestedCompArray);
